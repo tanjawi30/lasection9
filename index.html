@@ -1312,6 +1312,29 @@ document.getElementById('newsForm').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
+// ---------- BANDEROLE PROMO : boucle infinie sans trou, quelle que soit la largeur d'écran ----------
+function buildPromoMarquee(){
+  const track = document.querySelector('.promo-track');
+  if (!track) return;
+  const bar = track.closest('.promo-bar');
+  const unit = '<span><i class="dot"></i><strong>2 MAILLOTS ACHETÉS = 1 OFFERT</strong> sur toute la sélection</span>'
+             + '<span><i class="dot"></i>Appliqué automatiquement au panier — sans code</span>';
+  track.innerHTML = unit; // un seul motif pour mesurer sa largeur réelle
+  const unitWidth = track.scrollWidth || 1;
+  const barWidth = bar ? bar.clientWidth : window.innerWidth;
+  // nombre pair de répétitions nécessaire pour couvrir au moins 2x la largeur visible
+  let repeats = Math.ceil((barWidth * 2) / unitWidth);
+  if (repeats % 2 !== 0) repeats++;
+  if (repeats < 4) repeats = 4;
+  track.innerHTML = unit.repeat(repeats);
+}
+buildPromoMarquee();
+let promoResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(promoResizeTimer);
+  promoResizeTimer = setTimeout(buildPromoMarquee, 200);
+});
+
 // ---------- EMPLACEMENT PHOTO PRODUIT (HERO) ----------
 // Change ce chemin si tu ranges ta photo ailleurs / sous un autre nom.
 const JERSEY_PHOTO_SRC = 'maillot-hero.png';
