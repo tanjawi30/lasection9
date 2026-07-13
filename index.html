@@ -149,19 +149,6 @@
     0%,100%{opacity:.4;}
     50%{opacity:1;}
   }
-  .promo-close{
-    position:absolute;right:10px;top:50%;transform:translateY(-50%);
-    width:26px;height:26px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--text);opacity:.7;
-    background:linear-gradient(90deg, transparent, var(--bg) 40%);
-    padding-left:14px;
-    transition:opacity .2s;
-    z-index:2;
-  }
-  .promo-close:hover{opacity:1;}
-  body.promo-closed{padding-top:0;}
-  body.promo-closed .promo-bar{transform:translateY(-100%);pointer-events:none;}
   img{display:block;max-width:100%;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
@@ -196,7 +183,6 @@
     border-bottom:1px solid var(--line);
     transition:top .3s ease, background .3s ease, box-shadow .3s ease;
   }
-  body.promo-closed header{top:0;}
   header.scrolled{
     background:rgba(10,10,13,.94);
     box-shadow:0 12px 30px -18px rgba(0,0,0,.7);
@@ -326,13 +312,6 @@
   }
   .btn-ghost:hover, .btn-ghost:focus-visible{border-color:var(--muted);}
 
-  .hero-stats{display:flex;gap:44px;margin-top:56px;}
-  .hero-stats div{border-left:1px solid var(--line);padding-left:16px;}
-  .hero-stats b{
-    font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;display:block;
-  }
-  .hero-stats span{font-size:12px;color:var(--muted);}
-
   .hero-visual{
     position:relative;z-index:1;
     display:flex;justify-content:center;align-items:center;
@@ -415,33 +394,6 @@
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
   }
-
-  /* ---------- TRUST BAND ---------- */
-  .trust{
-    max-width:1320px;margin:0 auto;padding:56px 32px;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
-    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  }
-  .trust-item{
-    display:flex;flex-direction:column;align-items:flex-start;gap:14px;
-    padding:26px 22px;
-    border:1px solid var(--line);border-radius:14px;
-    background:var(--surface);
-    transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s, background .3s;
-  }
-  .trust-item:hover{
-    transform:translateY(-4px);
-    border-color:rgba(23,182,232,.35);
-    background:var(--surface-2);
-  }
-  .trust-item .ico{
-    width:40px;height:40px;flex:none;border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--surface-2);
-    color:var(--muted);
-  }
-  .trust-item h4{font-size:14.5px;font-weight:700;letter-spacing:.005em;}
-  .trust-item p{font-size:12.5px;line-height:1.55;color:var(--muted);}
 
   /* ---------- PROCESS (COMMENT ÇA MARCHE) ---------- */
   .process{max-width:1320px;margin:0 auto;padding:100px 32px 20px;}
@@ -757,11 +709,8 @@
   @media(max-width:920px){
     .hero{grid-template-columns:1fr;padding-top:56px;}
     .hero-visual{order:-1;max-width:280px;margin:0 auto;}
-    .trust{grid-template-columns:repeat(2,1fr);}
     .process-grid{grid-template-columns:1fr;}
     .clubs-grid{grid-template-columns:repeat(2,1fr);}
-    .stars-badge{width:36px;height:36px;border-radius:9px;}
-    .stars-badge svg{width:18px;height:18px;}
     .reviews-grid{grid-template-columns:repeat(2,1fr);row-gap:36px;}
 
     .grid{grid-template-columns:repeat(2,1fr);}
@@ -773,13 +722,11 @@
     .cta-inner{flex-direction:column;align-items:flex-start;}
   }
   @media(max-width:560px){
-    .wrap,.nav,.hero,.trust,.reviews,.catalog,.cta-band,.foot-grid,.process,.newarrivals,.clubs{padding-left:20px;padding-right:20px;}
+    .wrap,.nav,.hero,.reviews,.catalog,.cta-band,.foot-grid,.process,.newarrivals,.clubs{padding-left:20px;padding-right:20px;}
     .grid{grid-template-columns:1fr;}
     .na-grid{grid-template-columns:1fr;}
-    .trust{grid-template-columns:1fr;}
     .clubs-grid{grid-template-columns:repeat(2,1fr);}
     .reviews-grid{grid-template-columns:1fr;}
-    .reviews-num{font-size:72px;}
     .foot-grid{grid-template-columns:1fr;}
     .hero h1{font-size:44px;}
     .cta-form{flex-direction:column;width:100%;}
@@ -805,7 +752,6 @@
     <span><i class="dot"></i>Appliqué automatiquement au panier — sans code</span>
   </div>
   <p class="promo-static"><strong>2 MAILLOTS ACHETÉS = 1 OFFERT</strong> — sans code</p>
-  <button class="promo-close" id="promoClose" aria-label="Fermer la promotion">✕</button>
 </div>
 
 <!-- ================= HEADER ================= -->
@@ -848,8 +794,8 @@
   <div class="hero-glow"></div>
   <div class="hero-copy">
     <span class="eyebrow">Collection 2026/27 — Homme</span>
-    <h1>LE MAILLOT QU'IL TE<br>FAUT, <span class="grad-text">DANS LE BON</span><br>CLUB.</h1>
-    <p>Domicile, extérieur, third — coupe joueur ou coupe fan. Sélection homme uniquement, toutes les grandes ligues, livrée chez toi en 48h.</p>
+    <h1><span class="grad-text">Dans le bon</span> maillot,<br>au bon prix.</h1>
+    <p>Domicile, extérieur, third — coupe joueur ou coupe fan. Toutes les grandes ligues, livrée chez toi en 48h.</p>
     <div class="hero-ctas">
       <a href="#catalogue" class="btn btn-primary">Voir la boutique
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -860,11 +806,6 @@
       <span style="width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;animation:pulseDot 1.6s ease infinite;flex:none;"></span>
       Offre en cours : 2 maillots achetés, le 2e offert — sans code
     </p>
-    <div class="hero-stats">
-      <div><b>48h</b><span>Livraison France</span></div>
-      <div><b>5+</b><span>Ligues référencées</span></div>
-      <div><b>30j</b><span>Retours offerts</span></div>
-    </div>
   </div>
   <div class="hero-visual">
     <div class="jersey-stage">
@@ -953,30 +894,6 @@
     <span><em>DOMICILE</em><i class="dot"></i>EXTÉRIEUR<i class="dot"></i><em>THIRD</em><i class="dot"></i>COUPE JOUEUR<i class="dot"></i><em>COUPE FAN</em><i class="dot"></i>LIVRAISON 48H<i class="dot"></i></span>
   </div>
 </div>
-
-<!-- ================= TRUST BAND ================= -->
-<section class="trust reveal-stagger">
-  <div class="trust-item">
-    <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17B6E8" stroke-width="2"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg></div>
-    <h4>Livraison 48h</h4>
-    <p>Expédition le jour même avant 15h, suivi en temps réel.</p>
-  </div>
-  <div class="trust-item">
-    <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17B6E8" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-    <h4>Paiement sécurisé</h4>
-    <p>CB, PayPal, Apple Pay — transactions chiffrées de bout en bout.</p>
-  </div>
-  <div class="trust-item">
-    <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E51E4D" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 8 9 10 5-2 9-5 9-10V6z"/></svg></div>
-    <h4>Sélection homme</h4>
-    <p>Uniquement des maillots de foot homme, toutes tailles S à XXL.</p>
-  </div>
-  <div class="trust-item">
-    <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FF7A2E" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 12h6M3 12l3-3M3 12l3 3"/></svg></div>
-    <h4>Retours 30 jours</h4>
-    <p>Un maillot ne va pas ? Échange ou remboursement facile.</p>
-  </div>
-</section>
 
 <!-- ================= NOUVEAUTÉS ================= -->
 <section class="newarrivals" id="nouveautes">
@@ -1392,12 +1309,6 @@ document.getElementById('newsForm').addEventListener('submit', (e) => {
   btn.textContent = 'Inscrit ✓';
   setTimeout(() => btn.textContent = original, 1800);
   e.target.reset();
-});
-
-// ---------- FLOATING PROMO BAR ----------
-const promoBar = document.getElementById('promoBar');
-document.getElementById('promoClose').addEventListener('click', () => {
-  document.body.classList.add('promo-closed');
 });
 
 // ---------- EMPLACEMENT PHOTO PRODUIT (HERO) ----------
